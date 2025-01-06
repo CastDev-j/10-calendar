@@ -4,12 +4,13 @@ import { Calendar } from "react-big-calendar";
 import { localizer } from "../../helpers/calendarLocalizer";
 import { getMessagesEs } from "../../helpers/getMessages";
 import { CalendarEventBox } from "../components/CalendarEventBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarModal } from "../components/CalendarModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
 import { FabAddNew } from "../components/FabAddNew";
 import { FabDelete } from "../components/FabDelete";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 export const CalendarPage = () => {
   const { openDateModal } = useUiStore();
@@ -18,11 +19,13 @@ export const CalendarPage = () => {
     localStorage.getItem("lastView") || "month"
   );
 
-  const { events, setActiveEvent } = useCalendarStore();
+  const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
   const { activeEvent } = useCalendarStore();
+  const { user } = useAuthStore();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const eventStyleGetter = (event: any) => {
+
     const style = {
       backgroundColor: "#367CF7",
       borderRadius: "0px",
@@ -31,7 +34,11 @@ export const CalendarPage = () => {
       color: "white",
     };
 
-    if (event._id === activeEvent?._id) {
+    if (user.uid !== event.user.uid ) {
+      style.backgroundColor = "#465660";
+    }
+    
+    if (event.id === activeEvent?.id) {
       style.backgroundColor = "#619aff";
       style.color = "white";
     }
@@ -52,6 +59,12 @@ export const CalendarPage = () => {
     localStorage.setItem("lastView", e);
     setLastView(e);
   };
+
+  useEffect(() => {
+    startLoadingEvents();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

@@ -7,6 +7,7 @@ import {
   onLogout,
 } from "../store/auth/authSlice";
 import { StartLoginProps, StartRegisterProps } from "../types";
+import { onLogoutCalendar } from "../store/calendar/calendarSlice";
 
 export const useAuthStore = () => {
   //@ts-expect-error type not defined
@@ -96,6 +97,7 @@ export const useAuthStore = () => {
   const startLogout = () => {
     localStorage.clear();
     dispatch(onLogout({}));
+    dispatch(onLogoutCalendar());
   };
 
   return {

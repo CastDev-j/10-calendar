@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addHours } from "date-fns";
 
 const tempEvent = {
-  _id: new Date().getTime(),
+  id: new Date().getTime(),
   title: "Mi cumpleaños",
   notes: "Es mi cumpleaños",
-  start: new Date(),
-  end: addHours(new Date(), 24),
+  start: new Date(0),
+  end: addHours(new Date(0), 24),
   bgColor: "#343a40",
   user: {
     _id: "123",
@@ -15,6 +15,7 @@ const tempEvent = {
 };
 
 const initialState = {
+  isLoadingEvents: false,
   events: [tempEvent],
   activeEvent: null,
 };
@@ -34,7 +35,7 @@ export const calendarSlice = createSlice({
 
     onUpdatedEvent: (state, { payload }) => {
       state.events = state.events.map((event) =>
-        event._id === payload._id ? payload : event
+        event.id === payload.id ? payload : event
       );
     },
 
@@ -42,17 +43,38 @@ export const calendarSlice = createSlice({
       if (state.activeEvent) {
         state.events = state.events.filter(
           // @ts-expect-error type not defined
-          (event) => event._id !== state.activeEvent._id
+          (event) => event.id !== state.activeEvent.id
         );
         state.activeEvent = null;
       }
     },
+
+    onLoadEvents: (state, { payload = [] }) => {
+      state.isLoadingEvents = false;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      payload.forEach((event: any) => {
+        const exists = state.events.some((e) => e.id === event.id);
+
+        if (!exists) {
+          state.events.push(event);
+        }
+      });
+    },
+
+    onLogoutCalendar: (state) => {
+      state.isLoadingEvents = true;
+      state.events = [tempEvent];
+      state.activeEvent = null;
+    }
   },
 });
 
 export const {
-  onSetActiveEvent,
   onAddNewEvent,
-  onUpdatedEvent,
   onDeletedEvent,
+  onLoadEvents,
+  onLogoutCalendar,
+  onSetActiveEvent,
+  onUpdatedEvent,
 } = calendarSlice.actions;
