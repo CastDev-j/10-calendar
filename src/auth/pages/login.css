@@ -1,0 +1,91 @@
+/* Container Styles */
+.login-container {
+    margin-top: 10%;
+}
+
+/* Form Styles */
+.login-form {
+    border-radius: 5px;
+    padding: 5%;
+}
+
+.login-form h3 {
+    text-align: center;
+}
+
+/* Form Variant 1 */
+.login-form-1 {
+    background-color: #fff;
+    padding: 5%;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2), 0 9px 26px rgba(0, 0, 0, 0.19);
+}
+
+.login-form-1 h3 {
+    color: #333;
+}
+
+.login-form-1 .btnSubmit {
+    color: #fff;
+    background-color: #0062cc;
+}
+
+.login-form-1 .btnSubmit:hover {
+    background-color: #0056b3;
+}
+
+.login-form-1 .ForgetPwd {
+    color: #0062cc;
+}
+
+.login-form-1 .ForgetPwd:hover {
+    color: #004a99;
+}
+
+/* Form Variant 2 */
+.login-form-2 {
+    background-color: #0062cc;
+    padding: 5%;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2), 0 9px 26px rgba(0, 0, 0, 0.19);
+
+}
+
+.login-form-2 h3 {
+    color: #fff;
+}
+
+.login-form-2 .btnSubmit {
+    background-color: #fff;
+    color: #0062cc;
+}
+
+.login-form-2 .btnSubmit:hover {
+    background-color: #e6e6e6;
+}
+
+.login-form-2 .ForgetPwd {
+    color: #fff;
+}
+
+.login-form-2 .ForgetPwd:hover {
+    color: #d1d1d1;
+}
+
+/* Common Form Styles */
+.login-container form {
+    padding: 10%;
+}
+
+.btnSubmit {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ForgetPwd {
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
