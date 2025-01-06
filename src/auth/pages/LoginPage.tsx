@@ -5,8 +5,8 @@ import "./login.css";
 import Swal from "sweetalert2";
 
 const loginFormFields = {
-  loginEmail: "andres@andres.com",
-  loginPassword: "Andr@5",
+  loginEmail: "",
+  loginPassword: "",
 };
 
 const registerFormFields = {
